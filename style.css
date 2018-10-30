@@ -1,0 +1,136 @@
+﻿body{
+    margin: 0;
+    padding: 0;
+    font-size:12px;
+    background-color: lightgray;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background: url('./pics/table-3.png') repeat;
+}
+
+button.background {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+
+}
+
+.container {
+    width:400px;
+    /* height:600px; */
+    background-color: #5e5e5e;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 12px 0px rgba(0,0,0,0.25);
+}
+
+input{
+    font-size:24px;
+}
+.display{
+    /* width:384px; */
+    height:100px;
+    background-color:#bccd95;
+    margin-bottom:10px;
+    border: lightgray inset;
+    border-radius: 10px;
+    text-align: right;
+    font-size: 5rem;
+    overflow: hidden;
+    padding: 5px;
+    /* display: grid;
+    justify-items: center;
+    align-items: center; */
+}
+.display>.input{
+    /* position:relative;
+    top:2px;
+    left:2px; */
+    width:390px;
+    height:90px;
+    background-color:#bccd95;
+    text-align:right;
+    color: black;
+}
+
+.keys {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+}
+
+.keys>button {
+    height: 95px; 
+    font-size: 2rem;
+    border-radius: 5px;
+    /* border: 1px solid #5e5e5e; */
+}
+button.double {
+    grid-column: span 2;
+}
+#footer{
+    width:450px;
+
+}
+.footer{
+    text-align: right;
+    padding: 15px 25px;
+}
+.number, .operator {
+    width:100px;
+    height:100px;
+}
+.zero{
+    width:200px;
+    height:100px;
+}
+p{
+    margin:0;
+    padding:0;
+}
+/*.window {
+    float:left;
+    width:85%;
+    border: 1px solid green;
+    color: grey;
+}
+.backspace {
+    float:right;
+    width:10%;
+    border: 1px solid red;
+}
+
+#footer{
+    position:absolute;
+    right: 25px;
+    bottom: 15px;
+}
+.number{
+    color:white;
+    display:inline;
+    border: 1px solid white;
+    min-width: 100px;
+    min-height: 100px;
+    background-color:yellowgreen;
+    margin:5px;
+    padding:5px;
+}
+.zero{
+    color:white;
+    display:inline;
+    border: 1px solid white;
+    min-width: 200px;
+    min-height:100px;
+}
+.operator{
+    display:inline;
+    color:grey;
+    border: 1px solid grey;
+    min-width:100px;
+    min-height:100px;
+}
+.newrow{
+    clear:both;
+}*/
