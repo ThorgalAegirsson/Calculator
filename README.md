@@ -12,8 +12,8 @@
     * ~~after '='~~
     * after other operators if there were two operands before
 * error proofing
-* add ',' in thousands
+* ~~add ',' in thousands~~ - ABANDONED
 * styling for pressed buttons
-* font for the display
+* ~~font for the display~~
 * fix mobile size
 * keyboard events

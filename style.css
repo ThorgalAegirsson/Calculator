@@ -1,4 +1,9 @@
-﻿body{
+﻿@font-face {
+    font-family: 'digital';
+    src: url('./font/digital.ttf') format('truetype')
+}    
+
+body{
     margin: 0;
     padding: 0;
     font-size:12px;
@@ -41,6 +46,7 @@ input{
     font-size: 5rem;
     overflow: hidden;
     padding: 5px;
+    font-family: 'digital';
     /* display: grid;
     justify-items: center;
     align-items: center; */

@@ -57,7 +57,7 @@ export class Model {
     _numberToString(number) {
         ///fixes inaccuracies in JS calculations and clears further decimal digits
         number = number.toString().slice(0, 9);
-        number = parseFloat(result);
+        number = parseFloat(number);
         number = number.toString();
         return number;
     }
@@ -124,7 +124,7 @@ export class Controller {
         if (number === '.') number = '0.';
         if (number.indexOf('0') === 0 && number.length === 2 && number !== '0.') number = number.slice(1);
         if (number.indexOf('.') !== number.lastIndexOf('.')) number = number.slice(0, number.length - 1);
-        if (number.length > 9) number = number.slice(0, 9);
+        if (number.length > 10) number = number.slice(0, 10);
         return number;
     }
 
