@@ -11,7 +11,7 @@ import { View, Model, Controller } from './app.js';
 
         
         const view = new View($display);
-        const model = new Model(view);
+        const model = new Model();
         const controller = new Controller($keys, model, view);
         view.updateDisplay(0);
         controller.init();

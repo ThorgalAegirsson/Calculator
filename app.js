@@ -17,9 +17,8 @@ export class View {
 }
 
 export class Model {
-    constructor(view) {
+    constructor() {
         // this.history = [];
-        this.view = view;
         this.operators = [
             { action: 'percentage', func: this.percentage },
             { action: 'divide', func: this.divide },
@@ -48,14 +47,12 @@ export class Model {
         first = parseFloat(first);
         second = parseFloat(second);
         let operation = this.operators.find((op) => op.action === operator);
-        // console.log(`operation: ${operation}`);
         let result = operation.func(first, second);
         result = this._numberToString(result);
-        this.view.updateDisplay(result);
         return result;
     }
     _numberToString(number) {
-        ///fixes inaccuracies in JS calculations and clears further decimal digits
+        ///fixes inaccuracies in JS calculations and clears trailing zeros
         number = number.toString().slice(0, 9);
         number = parseFloat(number);
         number = number.toString();
@@ -96,6 +93,7 @@ export class Controller {
                 let result = this.model.calculate(this.firstNumber, this.secondNumber, this.operator);
                 this.reset();
                 this.firstNumber = result;
+                this.view.updateDisplay(result);
             } else if (el.dataset.action === 'AC') {
                 this.reset();
                 this.view.updateDisplay('0');
@@ -120,12 +118,17 @@ export class Controller {
         this.operator = null;
     }
     _sanitize(number) {
+        let negative = '';
+        if (number[0] === '-') {
+            number = number.slice(1);
+            negative = '-';
+        }
         if (number === '00') number = '0';
         if (number === '.') number = '0.';
         if (number.indexOf('0') === 0 && number.length === 2 && number !== '0.') number = number.slice(1);
         if (number.indexOf('.') !== number.lastIndexOf('.')) number = number.slice(0, number.length - 1);
         if (number.length > 10) number = number.slice(0, 10);
-        return number;
+        return negative.concat(number);
     }
 
 }
