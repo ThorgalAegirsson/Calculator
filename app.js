@@ -7,11 +7,7 @@ export class View {
         this.display.textContent = number;
     }
     changeBgnd() {
-        //random number
         const rnd = Math.floor(Math.random() * 6) + 1;
-        //create filename
-        const file = `table-${rnd}.png`;
-        //css with the filename
         document.querySelector('body').style.background = `url('./pics/table-${rnd}.png') repeat`;
     }
 }
@@ -125,7 +121,6 @@ export class Controller {
                     this.view.updateDisplay(this.secondNumber);
                 } else { //chaining operations
                     this._equals(el);
-                    // this.operator = el.dataset.action;
                 }
             } else if (el.dataset.action === 'equals') {
                 if (!this.firstNumber) return;
@@ -149,7 +144,6 @@ export class Controller {
             } else if (this.operator) {
                 if (!this.secondNumber) return this.operator = el.dataset.action;
                 this._equals(el);
-                // this.operator = el.dataset.action;
             } else {
                 if (!this.firstNumber) this.firstNumber = '0';
                 this.operator = el.dataset.action;
@@ -162,20 +156,15 @@ export class Controller {
         this.operator = null;
     }
     _equals(el) {
-        console.log(`first: ${this.firstNumber}, second: ${this.secondNumber}, operator: ${this.operator}`);
         this.result = this.model.calculate(this.firstNumber, this.secondNumber, this.operator);
         this.reset();
         this.firstNumber = this.result;
         this.operator = el ? el.dataset.action : null;
-        console.log(`operator: ${this.operator}`);
         if (this.result === 'NaN') {
             this.result = 'Error';
             this.reset();
         }
-        console.log(`operator: ${this.operator}`);
-
         this.view.updateDisplay(this.result);
-        console.log(`firstNumber = ${this.firstNumber}`);
     }
     _sanitize(number) {
         let negative = '';
