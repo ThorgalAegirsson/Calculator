@@ -88,6 +88,16 @@ export class Controller {
         this.keys.addEventListener('click', (evt) => {
             this.evaluate(evt.target);
         });
+        this.keys.addEventListener('mousedown', (evt) => {
+            evt.target.style.border = 'inset';
+        });
+        this.keys.addEventListener('mouseup', (evt) => {
+            evt.target.style.border = '';
+        });
+        this.keys.addEventListener('mouseout', (evt) => {
+            console.log(this.keys);
+            [...this.keys.children].forEach(key => key.style.border = '');
+        })
     }
     evaluate(el) {
         if (!el.matches('button')) return;

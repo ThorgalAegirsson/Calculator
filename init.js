@@ -7,7 +7,7 @@ import { View, Model, Controller } from './app.js';
         //DOM elements
         const $display = document.querySelector('.display');
         const $keys = document.querySelector('.keys');
-        const bgndBtn = document.querySelector('button.background');
+        const $bgndBtn = document.querySelector('button.background');
 
         
         const view = new View($display);
@@ -15,7 +15,7 @@ import { View, Model, Controller } from './app.js';
         const controller = new Controller($keys, model, view);
         view.updateDisplay(0);
         controller.init();
-        bgndBtn.addEventListener('click', view.changeBgnd);
+        $bgndBtn.addEventListener('click', view.changeBgnd);
 
     };
 

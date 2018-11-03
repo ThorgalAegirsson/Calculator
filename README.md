@@ -16,8 +16,8 @@
     * ~~if no first number but operator and second number = error~~
 * ~~font for the display~~
 * ~~error proofing~~
-* styling for pressed buttons
-* fix mobile size
+* ~~styling for pressed buttons~~
+* ~~fix mobile size~~
 * keyboard events
 * ~~add ',' in thousands~~ - ABANDONED
 
