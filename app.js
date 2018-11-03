@@ -82,6 +82,7 @@ export class Controller {
         this.firstNumber = '';
         this.secondNumber = '';
         this.operator = null;
+        this.result = null;
     }
     init() {
         this.keys.addEventListener('click', (evt) => {
@@ -92,6 +93,7 @@ export class Controller {
         if (!el.matches('button')) return;
         if (!el.classList.contains('key--operator')) { //it's a number
             if (!this.operator) { //this is the first number
+                if (this.result) this.firstNumber = '';
                 this.firstNumber = this.firstNumber.concat(el.textContent);
                 this.firstNumber = this._sanitize(this.firstNumber);
                 this.view.updateDisplay(this.firstNumber);
@@ -101,6 +103,7 @@ export class Controller {
                 this.view.updateDisplay(this.secondNumber);
             }
         } else { //it's an operator
+            
             if (el.dataset.action === 'subtract') { //implement negative numbers
                 if (!this.firstNumber) {
                     this.firstNumber = '-';
@@ -115,6 +118,12 @@ export class Controller {
                     // this.operator = el.dataset.action;
                 }
             } else if (el.dataset.action === 'equals') {
+                if (!this.firstNumber) return;
+                if (!this.secondNumber) {
+                    this.reset();
+                    this.view.updateDisplay('0');
+                    return;
+                }
                 this._equals();
             } else if (el.dataset.action === 'AC') {
                 this.reset();
@@ -128,9 +137,11 @@ export class Controller {
                     this.view.updateDisplay('0');
                 }
             } else if (this.operator) {
+                if (!this.secondNumber) return this.operator = el.dataset.action;
                 this._equals(el);
                 // this.operator = el.dataset.action;
             } else {
+                if (!this.firstNumber) this.firstNumber = '0';
                 this.operator = el.dataset.action;
             }
         }
@@ -142,18 +153,18 @@ export class Controller {
     }
     _equals(el) {
         console.log(`first: ${this.firstNumber}, second: ${this.secondNumber}, operator: ${this.operator}`);
-        let result = this.model.calculate(this.firstNumber, this.secondNumber, this.operator);
+        this.result = this.model.calculate(this.firstNumber, this.secondNumber, this.operator);
         this.reset();
-        this.firstNumber = result;
+        this.firstNumber = this.result;
         this.operator = el ? el.dataset.action : null;
         console.log(`operator: ${this.operator}`);
-        if (result === 'NaN') {
-            result = 'Error';
+        if (this.result === 'NaN') {
+            this.result = 'Error';
             this.reset();
         }
         console.log(`operator: ${this.operator}`);
 
-        this.view.updateDisplay(result);
+        this.view.updateDisplay(this.result);
         console.log(`firstNumber = ${this.firstNumber}`);
     }
     _sanitize(number) {
