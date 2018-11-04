@@ -79,75 +79,39 @@ export class Controller {
         this.secondNumber = '';
         this.operator = null;
         this.result = null;
+        this.element = null;
     }
     init() {
         //mouse events
-        this.keys.addEventListener('click', (evt) => {
-            this.evaluate(evt.target);
-        });
         this.keys.addEventListener('mousedown', (evt) => {
-            evt.target.style.border = 'inset';
+            this.element = evt.target;
+            this.element.style.border = 'inset';
         });
         this.keys.addEventListener('mouseup', (evt) => {
-            evt.target.style.border = '';
+            this.element.style.border = '';
+            this.evaluate(this.element);
         });
         this.keys.addEventListener('mouseout', (evt) => {
-            [...this.keys.children].forEach(key => key.style.border = '');
+            if (this.element) this.element.style.border = '';
         });
         //keyboard events
         window.addEventListener('keydown', evt => {
-            //check target. if there is corresponding button then
-            let key;
-            switch (evt.key) {
-                case 'Enter':
-                    key = '=';
-                    break;
-                case '*':
-                    key = '×';
-                    break;
-                case 'Escape':
-                    key = 'AC';
-                    break;
-                case 'Backspace':
-                case 'Delete':
-                    key = 'CE';
-                    break;
-                default:
-                    key = evt.key;
-            }
-            let element = [...this.keys.children].find(child => child.textContent === key);
-            if (element) element.style.border = 'inset'
+            this.element = this._findElement(evt);
+            if (this.element) this.element.style.border = 'inset';
         });
         window.addEventListener('keyup', evt => {
-            //check what key and find the corresponding element
-            let key;
-            switch (evt.key) {
-                case 'Enter':
-                    key = '=';
-                    break;
-                case '*':
-                    key = '×';
-                    break;
-                case 'Escape':
-                    key = 'AC';
-                    break;
-                case 'Backspace':
-                case 'Delete':
-                    key = 'CE';
-                    break;
-                default:
-                    key = evt.key;
-            }
-            let element = [...this.keys.children].find(child => child.textContent === key);
-            this.evaluate(element);
-            [...this.keys.children].forEach(key => key.style.border = '');
+                this.element.style.border = '';
+                this.evaluate(this.element);
         });
     }
     evaluate(el) {
         if (!el.matches('button')) return;
         if (!el.classList.contains('key--operator')) { //it's a number
             if (!this.operator) { //this is the first number
-                if (this.result) this.firstNumber = '';
+                if (this.result) {
+                    this.firstNumber = '';
+                    this.result = null;
+                }
                 this.firstNumber = this.firstNumber.concat(el.textContent);
                 this.firstNumber = this._sanitize(this.firstNumber);
                 this.view.updateDisplay(this.firstNumber);
@@ -197,6 +161,7 @@ export class Controller {
                 this.operator = el.dataset.action;
             }
         }
+        // this.element = null;
     }
     reset() {
         this.firstNumber = '';
@@ -213,6 +178,7 @@ export class Controller {
             this.reset();
         }
         this.view.updateDisplay(this.result);
+        this.result = '0';
     }
     _sanitize(number) {
         let negative = '';
@@ -226,6 +192,27 @@ export class Controller {
         if (number.indexOf('.') !== number.lastIndexOf('.')) number = number.slice(0, number.length - 1);
         if (number.length > 10) number = number.slice(0, 10);
         return negative.concat(number);
+    }
+    _findElement(evt) {
+        let key;
+        switch (evt.key) {
+            case 'Enter':
+                key = '=';
+                break;
+            case '*':
+                key = '×';
+                break;
+            case 'Escape':
+                key = 'AC';
+                break;
+            case 'Backspace':
+            case 'Delete':
+                key = 'CE';
+                break;
+            default:
+                key = evt.key;
+        }
+        return [...this.keys.children].find(child => child.textContent === key);
     }
 
 }
