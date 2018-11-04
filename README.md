@@ -18,6 +18,6 @@
 * ~~error proofing~~
 * ~~styling for pressed buttons~~
 * ~~fix mobile size~~
-* keyboard events
+* ~~keyboard events~~
 * ~~add ',' in thousands~~ - ABANDONED
 
