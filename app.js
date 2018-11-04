@@ -54,7 +54,7 @@ export class Model {
             if (number.length > 10) {
                 number = 'NaN';
             }
-        } else if (dotPosition === 9) { 
+        } else if (dotPosition === 9) {
             number = number.slice(0, 9);
         } else if (dotPosition > 9) {
             number = 'NaN';
@@ -83,15 +83,15 @@ export class Controller {
     }
     init() {
         //mouse events
-        this.keys.addEventListener('mousedown', (evt) => {
+        this.keys.addEventListener('mousedown', evt => {
             this.element = evt.target;
             this.element.style.border = 'inset';
         });
-        this.keys.addEventListener('mouseup', (evt) => {
+        this.keys.addEventListener('mouseup', evt => {
             this.element.style.border = '';
             this.evaluate(this.element);
         });
-        this.keys.addEventListener('mouseout', (evt) => {
+        this.keys.addEventListener('mouseout', evt => {
             if (this.element) this.element.style.border = '';
         });
         //keyboard events
@@ -100,8 +100,8 @@ export class Controller {
             if (this.element) this.element.style.border = 'inset';
         });
         window.addEventListener('keyup', evt => {
-                this.element.style.border = '';
-                this.evaluate(this.element);
+            this.element.style.border = '';
+            this.evaluate(this.element);
         });
     }
     evaluate(el) {
@@ -121,7 +121,7 @@ export class Controller {
                 this.view.updateDisplay(this.secondNumber);
             }
         } else { //it's an operator
-            
+
             if (el.dataset.action === 'subtract') { //implement negative numbers
                 if (!this.firstNumber) {
                     this.firstNumber = '-';
@@ -144,6 +144,7 @@ export class Controller {
                 this._equals();
             } else if (el.dataset.action === 'AC') {
                 this.reset();
+                this.result = null;
                 this.view.updateDisplay('0');
             } else if (el.dataset.action === 'CE') {
                 if (!this.operator) {
