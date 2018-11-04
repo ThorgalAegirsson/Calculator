@@ -81,6 +81,7 @@ export class Controller {
         this.result = null;
     }
     init() {
+        //mouse events
         this.keys.addEventListener('click', (evt) => {
             this.evaluate(evt.target);
         });
@@ -91,9 +92,56 @@ export class Controller {
             evt.target.style.border = '';
         });
         this.keys.addEventListener('mouseout', (evt) => {
-            console.log(this.keys);
             [...this.keys.children].forEach(key => key.style.border = '');
-        })
+        });
+        //keyboard events
+        window.addEventListener('keydown', evt => {
+            //check target. if there is corresponding button then
+            let key;
+            switch (evt.key) {
+                case 'Enter':
+                    key = '=';
+                    break;
+                case '*':
+                    key = '×';
+                    break;
+                case 'Escape':
+                    key = 'AC';
+                    break;
+                case 'Backspace':
+                case 'Delete':
+                    key = 'CE';
+                    break;
+                default:
+                    key = evt.key;
+            }
+            let element = [...this.keys.children].find(child => child.textContent === key);
+            if (element) element.style.border = 'inset'
+        });
+        window.addEventListener('keyup', evt => {
+            //check what key and find the corresponding element
+            let key;
+            switch (evt.key) {
+                case 'Enter':
+                    key = '=';
+                    break;
+                case '*':
+                    key = '×';
+                    break;
+                case 'Escape':
+                    key = 'AC';
+                    break;
+                case 'Backspace':
+                case 'Delete':
+                    key = 'CE';
+                    break;
+                default:
+                    key = evt.key;
+            }
+            let element = [...this.keys.children].find(child => child.textContent === key);
+            this.evaluate(element);
+            [...this.keys.children].forEach(key => key.style.border = '');
+        });
     }
     evaluate(el) {
         if (!el.matches('button')) return;
